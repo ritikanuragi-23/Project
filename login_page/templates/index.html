@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="../static/Todo.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div class="navbar">    
+        <i class="material-icons" id="home">home</i>
+        <i class="material-icons" id="person">person</i>
+        <i class="material-icons" id="refresh">refresh</i>
+    </div>
+    <body>
+
+        <div class="quote-container">
+            <div id="quoteText">"Your limitation—it's only your imagination."</div>
+        </div>
+    <div class="digital-clock" id="digitalClock"></div>
+
+    <div class="Container"> 
+        <h1>To Do List</h1>
+        <div class="input">
+            <input type="text" placeholder="Enter Your Task......." id="taskInput">
+            <button class="button" onclick="Add()">Add</button> 
+            <ul id="taskList"></ul>
+        </div>
+        <div>
+            <button class="button2" onclick="deleteAll()">DeleteAll</button>
+        </div>
+    </div>
+    <div id="confirmationPopup">
+       <p>Are you sure you want to delete this task?</p>
+       <button id="confirmDeleteBtn">Yes</button>
+       <button id="cancelDeleteBtn">No</button>
+    </div>
+    
+<script src="../static/script.js"></script>
+</body>
+</html> 

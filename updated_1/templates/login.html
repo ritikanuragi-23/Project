@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+    <div class="container">
+        <div class="logo"><img src="../static/logo.png" alt="Logo" class="logo"></div>
+        <h2 id="login">USER LOGIN</h2>
+        <form id="form" method="post">
+            <div class="input-group">
+                <label for="username"><b>Username</b></label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password"><b>Password</b></label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="Age"><b>Age</b></label>
+                <input type="number" id="Age" name="Age" required>
+			</div>
+		  </div>
+            {% if cala == 1 %}
+            <div class="error">
+                Wrong Attempt
+            </div>
+            {% endif %}
+            <button type="button" onclick="submitToForward()">Login</button>
+            <!-- <img src="../static/logo.png" alt="User Avatar" class="user-avatar"> -->
+        </form>
+
+        <script>        
+        function submitToForward(){
+        var form = document.getElementById('form');
+        form.method = 'post';
+        form.action = '/forward';
+        form.submit();
+        }; 
+        </script>
+    </div>
+</body>
+</html>

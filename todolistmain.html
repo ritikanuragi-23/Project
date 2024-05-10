@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body{ background-color:#0d1117;
+  font-family: 'Times New Roman', Times, serif;
+}
+.Container{
+  width: 500px;
+  padding: 33px;
+  text-align: center;
+  background-color:white;
+  margin-left: 33% ;
+  margin-top: 50px;
+  box-shadow: 5px 10px black;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px black;
+}
+input{
+  width: 270px;
+  padding: 8px;
+  border: 2px solid rgb(6, 145, 145);
+  outline: none;
+  font-size: 19px;
+  border-radius: 22px;
+}
+.button{
+  width: 60px;
+  height: 41px;
+  text-align: center;
+  background-color: rgb(234, 52, 52);
+  color: white;
+  border: 2px solid black;
+  padding: 1px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 8px;
+  
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color:  rgb(50, 187, 187);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: larger;
+  font-weight: bold;
+  overflow: auto; /* Hide overflow text */
+   
+
+
+
+}
+li.completed {
+  text-decoration: line-through;
+
+}
+
+
+li:hover {
+  background-color: #bc938f;
+
+}
+
+ .material-icons{
+   color: brown;
+   cursor: pointer;
+ }
+ .material-icons:hover{
+   background-color: white;
+
+ }
+
+.button2{
+  width: 60px;
+  height: 41px;
+  text-align: center;
+  background-color: red;
+  color: white;
+  border: 2px solid black;
+  border: 2px solid black;
+  padding: 5px;
+  font-size: 11px;
+  cursor: pointer;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  position: relative;
+  margin: auto;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.Set__timer{
+  margin-left:140px;
+
+
+}
+.navbar{
+  background-color: white;
+}
+#confirmationPopup{
+  display: none; 
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); 
+  background-color:white; padding: 20px; 
+  border: 1px solid black; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.digital-clock {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 10px;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  
+}
+.quote-container {
+  position: relative;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  
+}
+
+#quoteText {
+  font-size: 36px;
+  font-weight: bold;
+}
+.time__play{
+    visibility: hidden;
+}
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        
+        <i class="material-icons" id="home">home</i>
+        <i class="material-icons" id="person">person</i>
+        <i class="material-icons" id="refresh">refresh</i>
+    </div>
+    <body>
+
+        <div class="quote-container">
+            <div id="quoteText">"Your limitation—it's only your imagination."</div>
+        </div>
+    <div class="digital-clock" id="digitalClock"></div>
+
+    <div class="Container"> 
+        <h1>To Do List</h1>
+        <div class="input">
+            <input type="text" placeholder="Enter Your Task......." id="taskInput">
+            <button class="button" onclick="Add()">Add</button> 
+            <ul id="taskList"></ul>
+        </div>
+        <div>
+            <button class="button2" onclick="deleteAll()">DeleteAll</button>
+        </div>
+    </div>
+    <div id="confirmationPopup">
+       <p>Are you sure you want to delete this task?</p>
+       <button id="confirmDeleteBtn">Yes</button>
+       <button id="cancelDeleteBtn">No</button>
+    </div>
+    
+<script>
+    let tasks = [];
+
+let home= document.getElementById('home');
+let refresh = document.getElementById('refresh');
+let person = document.getElementById('person');
+
+refresh.addEventListener('click' ,function() {
+    location.reload();
+});
+
+home.addEventListener('click', function() {
+    window.location.href = '/';
+});
+
+
+function Add() {
+    let taskInput = document.getElementById('taskInput');
+    let taskList = document.getElementById('taskList');
+
+    if (taskInput.value.trim() === '') {
+        alert('Please enter a task');
+        return;
+    }
+
+    let li = document.createElement('li');
+    li.textContent = taskInput.value;
+    li.id = tasks.length;
+
+
+    let deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'bttn';
+    deleteBtn.onclick = function () {
+        showConfirmation(li.id);;
+    };
+    let completeBtn = document.createElement('button');
+    completeBtn.textContent = 'Complete';
+    completeBtn.className = 'complete-btn';
+    completeBtn.onclick = function () {
+        toggleComplete(li.id);;
+    };
+
+    let editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.className = 'edit-btn';
+    editBtn.onclick = function () {
+        editTask(li.id);;
+    };
+    let setTimer = document.createElement('button');
+    setTimer.textContent = "Set Time";
+    setTimer.className = 'Set__timer';
+    setTimer.onclick = function () {
+        timer(li.id);;
+    }
+
+    let TimePlay = document.createElement('button');
+    TimePlay.textContent="Start";
+    TimePlay.className="time__play";
+    TimePlay.onclick = function() {
+        startCountdown(li.id);;
+    }
+    let DeadLine = document.createElement('button');
+    DeadLine.textContent = "Set DeadLine";
+    DeadLine.className = "dead__line";
+    DeadLine.onclick = function() {
+        deadLine(li.id);;
+    }
+    li.appendChild(setTimer);
+    li.appendChild(TimePlay);
+    li.appendChild(DeadLine);
+    li.appendChild(deleteBtn);
+    li.appendChild(completeBtn);
+    li.appendChild(editBtn);
+    taskList.appendChild(li);
+
+    tasks.push({ 
+        id: li.id,
+        task: taskInput.value,
+        completed: false
+    });
+    taskInput.value = '';
+}
+function timer(id){
+    const hour = prompt("Set Time In Hours")
+    const minute = prompt("Set Time In Minutes")
+    const second = prompt("Set Time In Seconds")
+    const milliseconds_remaining = (Number(hour)*60*60*1000)+(Number(minute)*60*1000)+(Number(second)*1000);
+    const var_hr = Math.floor((milliseconds_remaining / (1000 * 60 * 60)) % 24);
+    const var_min = Math.floor((milliseconds_remaining / (1000 * 60)) % 60);
+    const var_sec = Math.floor((milliseconds_remaining / 1000) % 60);
+    let parentElement_li = document.getElementById(id);
+    let childElement_li = parentElement_li.children[0];
+    if (milliseconds_remaining == 0 ){
+        alert("Enter a valid Time")
+    }
+    else{
+        childElement_li.innerHTML = var_hr+":"+var_min+":"+var_sec;
+        childElement_li_2 = parentElement_li.children[1];
+        childElement_li_2.style.visibility = "visible";
+    }
+    return milliseconds_remaining!=0
+}
+function startCountdown(id) {
+      const parentElement_li = document.getElementById(id);
+      const childElement_li = parentElement_li.children[0];
+      const childElement_li_4 = parentElement_li.children[4];
+      childElement_li_2.style.visibility = "hidden"
+      const time = childElement_li.innerHTML
+      if (time!=""){
+      let simplified_time = time.split(":")
+      let hoursLeft = simplified_time[0]
+      let minutesLeft = simplified_time[1]
+      let secondsLeft = simplified_time[2]
+      const milliseconds_remaining = (Number(hoursLeft)*60*60*1000)+(Number(minutesLeft)*60*1000)+(Number(secondsLeft)*1000);
+      let remainingTime = milliseconds_remaining-1000
+            const countdownInterval = setInterval(() => {
+                const var_hr = Math.floor((remainingTime / (1000*60 *60)) %24)
+                const var_min = Math.floor(remainingTime / (60 * 1000));
+                const var_sec = Math.floor(((remainingTime % (60 * 1000)) / 1000));
+
+                childElement_li.innerHTML = var_hr+":"+var_min+":"+var_sec;
+
+                if (remainingTime == 0) {
+                    clearInterval(countdownInterval);
+                    alert('Countdown complete!');
+                    childElement_li.style.background = "pink";
+                    childElement_li.style.textDecoration = "line-through";
+                    childElement_li_4.style.visibility = "visible";
+                } else {
+                    remainingTime -= 1000; // Decrease by 1 second
+                    childElement_li.style.background = "lightgreen";
+                    childElement_li_4.style.visibility = "hidden";
+                }
+                if (remainingTime<5000){
+                childElement_li.style.color="red";
+                }
+                else{
+                childElement_li.style.color="black";
+                }
+            }, 1000);
+        }
+}
+function deadLine(id){
+    const dead_line = prompt("Enter the dead line date in yyyy/mm/dd format");
+    if (dead_line == ""){
+        alert("Type a Date")
+    }
+    else{
+        const dead_line_date = new Date(dead_line);
+        const today = new Date();
+        let parentElement_li = document.getElementById(id);
+        let childElement_li = parentElement_li.children[2];
+        let year_only = dead_line_date.getFullYear();
+        let month_only = dead_line_date.getMonth();
+        let date_only = dead_line_date.getDate();
+        childElement_li.textContent = "Due "+ date_only + "/" + month_only + "/" + year_only;
+        
+        if (dead_line_date-today <= 0){
+            childElement_li.style.textDecoration = "line-through";
+            childElement_li.style.background = "pink";
+        }
+        else {
+            childElement_li.style.background = "lightgreen";
+        }
+    }
+}
+function showConfirmation(id) {
+    let confirmationPopup = document.getElementById('confirmationPopup');
+    confirmationPopup.style.display = 'block';
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        Delete(id); // Call Delete function if confirmed
+        confirmationPopup.style.display = 'none'; // Hide the confirmation popup
+    });
+
+    document.getElementById('cancelDeleteBtn').addEventListener('click', function() {
+        confirmationPopup.style.display = 'none'; // Hide the confirmation popup
+    });
+}
+
+function Delete(id) {
+    let taskList = document.getElementById('taskList');
+    let li = document.getElementById(id);
+    taskList.removeChild(li);
+    tasks.splice(id, 1);
+}
+function toggleComplete(id) {
+    let li = document.getElementById(id);
+    let taskIndex = tasks.findIndex(task => task.id === id);
+
+    if (taskIndex !== -1) {
+        tasks[taskIndex].completed = !tasks[taskIndex].completed;
+        li.classList.toggle('completed');
+    }
+    
+}
+function editTask(id) {
+    let li = document.getElementById(id);
+    let taskIndex = tasks.findIndex(task => task.id === id);
+
+    if (taskIndex !== -1) {
+        let newTask = prompt('Edit task:', tasks[taskIndex].task);
+        if (newTask !== null) {
+            tasks[taskIndex].task = newTask;
+            li.textContent = newTask;
+        }
+    }
+    let deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'bttn';
+    deleteBtn.onclick = function () {
+        showConfirmation(li.id);;
+    };
+    let completeBtn = document.createElement('button');
+    completeBtn.textContent = 'Complete';
+    completeBtn.className = 'complete-btn';
+    completeBtn.onclick = function () {
+        toggleComplete(li.id);;
+    };
+
+    let editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.className = 'edit-btn';
+    editBtn.onclick = function () {
+        editTask(li.id);;
+    };
+
+
+    li.appendChild(deleteBtn);
+    li.appendChild(completeBtn);
+    li.appendChild(editBtn);
+    taskList.appendChild(li);
+}
+function deleteAll() {
+    const taskList = document.querySelectorAll('#taskList li');
+    taskList.forEach(item =>item.remove());
+    tasks = [];
+
+}
+function updateDigitalClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}:${seconds}`;
+
+    document.getElementById('digitalClock').textContent = timeString;
+
+    setTimeout(updateDigitalClock, 1000); 
+}
+
+updateDigitalClock(); 
+const quotes = [
+    { text: "Your limitation—it's only your imagination.",  },
+    { text: "Push yourself, because no one else is going to do it for you.",  },
+    { text: "Great things never come from comfort zones.", },
+    { text: "Dream it. Wish it. Do it.",  },
+    { text: "Success doesn’t just find you. You have to go out and get it.",  }
+];
+async function displayRandomQuote() {
+    try {
+        const response = await fetch('https://api.quotable.io/random');
+        const data=await response.json(); 
+        document.getElementById('quoteText').textContent = data.content;
+        document.getElementById('quoteAuthor').textContent = `- ${data.author}`;
+    }  
+    catch(error){
+        console.error('Error fetching quote:',error);
+    }
+}
+displayRandomQuote();
+setInterval(displayRandomQuote, 5000);
+</script>
+</body>
+</html> 

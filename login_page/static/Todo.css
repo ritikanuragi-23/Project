@@ -1,0 +1,134 @@
+body{ background-color:#0d1117;
+  font-family: 'Times New Roman', Times, serif;
+}
+.Container{
+  width: 500px;
+  padding: 33px;
+  text-align: center;
+  background-color:white;
+  margin-left: 33% ;
+  margin-top: 50px;
+  box-shadow: 5px 10px black;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px black;
+}
+input{
+  width: 270px;
+  padding: 8px;
+  border: 2px solid rgb(6, 145, 145);
+  outline: none;
+  font-size: 19px;
+  border-radius: 22px;
+}
+.button{
+  width: 60px;
+  height: 41px;
+  text-align: center;
+  background-color: rgb(234, 52, 52);
+  color: white;
+  border: 2px solid black;
+  padding: 1px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 8px;
+  
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color:  rgb(50, 187, 187);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: larger;
+  font-weight: bold;
+  overflow: auto; /* Hide overflow text */
+   
+
+
+
+}
+li.completed {
+  text-decoration: line-through;
+
+}
+
+
+li:hover {
+  background-color: #bc938f;
+
+}
+
+ .material-icons{
+   color: brown;
+   cursor: pointer;
+ }
+ .material-icons:hover{
+   background-color: white;
+
+ }
+
+.button2{
+  width: 60px;
+  height: 41px;
+  text-align: center;
+  background-color: red;
+  color: white;
+  border: 2px solid black;
+  border: 2px solid black;
+  padding: 5px;
+  font-size: 11px;
+  cursor: pointer;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  position: relative;
+  margin: auto;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.bttn{
+  margin-left:190px;
+
+
+}
+.navbar{
+  background-color: white;
+}
+#confirmationPopup{
+  display: none; 
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); 
+  background-color:white; padding: 20px; 
+  border: 1px solid black; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.digital-clock {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 10px;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  
+}
+.quote-container {
+  position: relative;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  
+}
+
+#quoteText {
+  font-size: 36px;
+  font-weight: bold;
+}
